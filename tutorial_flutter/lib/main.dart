@@ -13,11 +13,45 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
 
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  int count = 0;
+
   _onClick() {
-    print("test");
+    setState(() {
+      count++;
+    });
+  }
+
+  _reset() {
+    setState(() {
+      count = 0;
+    });
+  }
+
+  Widget getBigButton(int c) {
+    return Container(
+        height: 300,
+        width: 300,
+        decoration:
+            const BoxDecoration(color: Colors.blue, shape: BoxShape.circle),
+        child: getCounter(c));
+  }
+
+  Widget getCounter(int c) {
+    return Center(
+        child: Text(
+      "Você clicou no botão \n $count\n vezes",
+      style: const TextStyle(
+          fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
+      textAlign: TextAlign.center,
+    ));
   }
 
   @override
@@ -30,14 +64,16 @@ class MyHomePage extends StatelessWidget {
       body: Center(
           child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: const <Widget>[
-          Text("Olá, mundo! (de novo)"),
-          Text("Esse é meu primeiro app em Flutter"),
+        children: <Widget>[
+          GestureDetector(
+            onTap: _onClick,
+            child: getBigButton(count),
+          )
         ],
       )),
       floatingActionButton: FloatingActionButton(
-        onPressed: _onClick,
-        child: const Icon(Icons.add),
+        onPressed: (() => _reset()),
+        child: const Text('limpar'),
       ),
     );
   }
