@@ -1,2 +1,2 @@
-# dev-mobile
-Repositório para disciplina de Desenvolvimento de Sistemas Móveis
+# Mini projeto
+Branch criada para produção da primeira atividade avaliativa.
