@@ -27,6 +27,10 @@ class MyApp extends StatelessWidget {
               ))),
       debugShowCheckedModeBanner: false,
       home: CountriesScreen(),
+      initialRoute: '/',
+      routes: {
+        '/country-places': (context) => CountryPlacesScreen(),
+      },
     );
   }
 }
