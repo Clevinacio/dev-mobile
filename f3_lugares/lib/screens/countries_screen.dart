@@ -20,7 +20,7 @@ class CountriesScreen extends StatelessWidget {
           crossAxisSpacing: 20, //espacamento no eixo cruzado
           mainAxisSpacing: 20, //espacamento no eixo principal
         ),
-        children: dummyCountries.map((country) {
+        children: DUMMY_COUNTRIES.map((country) {
           return CountryItem(country);
         }).toList(),
       ),

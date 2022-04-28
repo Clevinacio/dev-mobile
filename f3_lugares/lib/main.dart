@@ -1,6 +1,8 @@
 import 'dart:ui';
 
 import 'package:f3_lugares/screens/countries_places_screen.dart';
+import 'package:f3_lugares/screens/place_detail_screen.dart';
+import 'package:f3_lugares/utils/app_routes.dart';
 import 'package:flutter/material.dart';
 
 import 'screens/countries_screen.dart';
@@ -18,18 +20,18 @@ class MyApp extends StatelessWidget {
               .copyWith(primary: Colors.purple, secondary: Colors.amber),
           //primarySwatch: Colors.purple,
           //accentColor: Colors.amber,
-          fontFamily: 'Roboto',
-          canvasColor: Color.fromARGB(255, 255, 255, 255),
+          fontFamily: 'Raleway',
+          canvasColor: Color.fromRGBO(255, 254, 229, 1),
           textTheme: ThemeData.light().textTheme.copyWith(
                   headline6: TextStyle(
                 fontSize: 20,
                 fontFamily: 'RobotoCondensed',
               ))),
-      debugShowCheckedModeBanner: false,
-      home: CountriesScreen(),
       initialRoute: '/',
       routes: {
-        '/country-places': (context) => CountryPlacesScreen(),
+        AppRoutes.HOME: (ctx) => CountriesScreen(),
+        AppRoutes.COUNTRY_PLACES: (ctx) => CountryPlacesScreen(),
+        AppRoutes.PLACES_DETAIL: (ctx) => PlaceDetailScreen(),
       },
     );
   }
