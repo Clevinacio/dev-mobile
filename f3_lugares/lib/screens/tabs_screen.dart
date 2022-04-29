@@ -3,17 +3,19 @@ import 'package:f3_lugares/screens/favoritos_screen.dart';
 import 'package:flutter/material.dart';
 
 class TabsScreen extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => _tabsScreenState();
+}
+
+class _tabsScreenState extends State<TabsScreen> {
   int _indexSelectedScreen = 0;
 
   final List<Widget> _screens = [CountriesScreen(), FavoritosScreen()];
 
-  @override
-  State<StatefulWidget> createState() {
-    _selectScreen(int index) {
-      setState(() {
-        _indexSelectedScreen = index;
-      });
-    }
+  _selectScreen(int index) {
+    setState(() {
+      _indexSelectedScreen = index;
+    });
   }
 
   @override
