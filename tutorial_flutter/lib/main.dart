@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tutorial_flutter/views/TaskDetailPage.dart';
 import 'package:tutorial_flutter/views/TodoListPage.dart';
 
 void main() {
@@ -10,6 +11,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(home: TodoListPage());
+    return MaterialApp(
+      initialRoute: '/',
+      routes: {
+        '/': (c) => const TodoListPage(),
+        '/task-detail': (c) => TaskDetailPage(),
+      },
+    );
   }
 }

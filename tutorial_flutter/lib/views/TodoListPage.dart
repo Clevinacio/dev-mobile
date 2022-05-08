@@ -26,22 +26,47 @@ class _TodoListPageState extends State<TodoListPage> {
         padding: const EdgeInsets.all(20),
         child: Column(
           children: <Widget>[
-            TarefaForm(_novaTarefa),
             Column(
-              children: <Widget>[TarefaLista(_tarefas)],
+              children: <Widget>[TarefaLista(_tarefas, _removeTarefa)],
             )
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute<void>(
+              builder: (BuildContext context) => TarefaForm(_novaTarefa),
+              fullscreenDialog: true,
+            ),
+          );
+        },
+        child: const Icon(Icons.add),
+      ),
     );
   }
 
-  void _novaTarefa(String titulo, DateTime data) {
+  void _novaTarefa(
+      String titulo, DateTime data, String observacao, String prioridade) {
     Tarefa novaTarefa = Tarefa(
-        id: Random().nextInt(9999).toString(), titulo: titulo, data: data);
+      id: Random().nextInt(9999).toString(),
+      titulo: titulo,
+      data: data,
+      observacao: observacao,
+      prioridade: prioridade,
+      criacao: DateTime.now(),
+    );
 
     setState(() {
       _tarefas.add(novaTarefa);
+      _tarefas.sort((a, b) => a.data.compareTo(b.data));
+    });
+  }
+
+  _removeTarefa(String id) {
+    setState(() {
+      _tarefas.removeWhere((tarefa) => tarefa.id == id);
     });
   }
 }
