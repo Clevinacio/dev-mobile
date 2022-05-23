@@ -16,4 +16,16 @@ class Place {
     required this.avaliacao,
     required this.custoMedio,
   });
+
+  Place getById(String id) {
+    return Place(
+      id: id,
+      paises: paises,
+      titulo: titulo,
+      imagemUrl: imagemUrl,
+      recomendacoes: recomendacoes,
+      avaliacao: avaliacao,
+      custoMedio: custoMedio,
+    );
+  }
 }

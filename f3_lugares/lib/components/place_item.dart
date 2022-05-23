@@ -8,11 +8,15 @@ class PlaceItem extends StatelessWidget {
   const PlaceItem(this.place);
 
   void _selectPlace(BuildContext context) {
-    Navigator.of(context).pushNamed(
-      AppRoutes.PLACES_DETAIL,
-      arguments:
-          place, //passar um map com chave valor para passar mais de um argumento
-    );
+    Navigator.of(context)
+        .pushNamed(
+          AppRoutes.PLACES_DETAIL,
+          arguments:
+              place, //passar um map com chave valor para passar mais de um argumento
+        )
+        .then((value) => {
+              if (value == null) {} else {print(value)}
+            });
   }
 
   @override
@@ -28,7 +32,7 @@ class PlaceItem extends StatelessWidget {
             Stack(children: <Widget>[
               ClipRRect(
                 //bordas na imagem
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(15),
                   topRight: Radius.circular(15),
                 ),
@@ -46,13 +50,13 @@ class PlaceItem extends StatelessWidget {
                 child: Container(
                   width: 300,
                   color: Colors.black54,
-                  padding: EdgeInsets.symmetric(
+                  padding: const EdgeInsets.symmetric(
                     vertical: 5,
                     horizontal: 20,
                   ),
                   child: Text(
                     place.titulo,
-                    style: TextStyle(fontSize: 26, color: Colors.white),
+                    style: const TextStyle(fontSize: 26, color: Colors.white),
                     softWrap: true, //quebra de lina
                     overflow: TextOverflow.fade, //case de overflow
                   ),
@@ -61,14 +65,14 @@ class PlaceItem extends StatelessWidget {
             ]),
             //Text(place.titulo),
             Padding(
-              padding: EdgeInsets.all(20),
+              padding: const EdgeInsets.all(20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
                   Row(
                     children: <Widget>[
-                      Icon(Icons.star),
-                      SizedBox(
+                      const Icon(Icons.star),
+                      const SizedBox(
                         width: 6,
                       ),
                       Text('${place.avaliacao}/5')
@@ -76,8 +80,8 @@ class PlaceItem extends StatelessWidget {
                   ),
                   Row(
                     children: <Widget>[
-                      Icon(Icons.attach_money),
-                      SizedBox(
+                      const Icon(Icons.attach_money),
+                      const SizedBox(
                         width: 6,
                       ),
                       Text('custo: R\$${place.custoMedio}')
