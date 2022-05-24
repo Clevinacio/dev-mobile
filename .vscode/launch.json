@@ -1,0 +1,12 @@
+{
+    "configurations": [
+        {
+            "name": "Flutter (Chrome)",
+            "program": "lib/main.dart",
+            "cwd": "f3_lugares",
+            "deviceId": "chrome",
+            "request": "launch",
+            "type": "dart"
+        }
+    ]
+}

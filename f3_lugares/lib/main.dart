@@ -3,6 +3,7 @@ import 'package:f3_lugares/models/favoritos.dart';
 import 'package:f3_lugares/models/place.dart';
 import 'package:f3_lugares/screens/countries_places_screen.dart';
 import 'package:f3_lugares/screens/place_detail_screen.dart';
+import 'package:f3_lugares/screens/place_form.dart';
 import 'package:f3_lugares/screens/settings_screen.dart';
 import 'package:f3_lugares/screens/tabs_screen.dart';
 import 'package:f3_lugares/utils/app_routes.dart';
@@ -43,7 +44,7 @@ class MyApp extends StatelessWidget {
             fontFamily: 'Raleway',
             canvasColor: Color.fromRGBO(255, 254, 229, 1),
             textTheme: ThemeData.light().textTheme.copyWith(
-                    headline6: TextStyle(
+                    headline6: const TextStyle(
                   fontSize: 20,
                   fontFamily: 'RobotoCondensed',
                 ))),
@@ -51,7 +52,8 @@ class MyApp extends StatelessWidget {
         routes: {
           AppRoutes.HOME: (ctx) => TabsScreen(),
           AppRoutes.COUNTRY_PLACES: (ctx) => CountryPlacesScreen(),
-          AppRoutes.PLACES_DETAIL: (ctx) => PlaceDetailScreen(),
+          AppRoutes.PLACES_DETAIL: (ctx) => const PlaceDetailScreen(),
+          AppRoutes.PLACES_FORM: (ctx) => PlaceFormScreen(),
           AppRoutes.SETTINGS: (ctx) => SettingsScreen(),
         },
       ),
