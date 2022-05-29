@@ -1,6 +1,7 @@
 import 'package:f3_lugares/data/my_data.dart';
 import 'package:f3_lugares/models/favoritos.dart';
 import 'package:f3_lugares/models/place.dart';
+import 'package:f3_lugares/models/places.dart';
 import 'package:f3_lugares/screens/countries_places_screen.dart';
 import 'package:f3_lugares/screens/place_detail_screen.dart';
 import 'package:f3_lugares/screens/place_form.dart';
@@ -10,9 +11,9 @@ import 'package:f3_lugares/utils/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'screens/countries_screen.dart';
+// import 'screens/countries_screen.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -32,6 +33,14 @@ class MyApp extends StatelessWidget {
             return favoritos;
           },
         ),
+        ChangeNotifierProxyProvider<List<Place>, Places>(
+          create: (context) => Places(),
+          update: (context, places, placesList) {
+            if (placesList == null) throw ArgumentError.notNull('favoritos');
+            placesList.places = places;
+            return placesList;
+          },
+        ),
       ],
       child: MaterialApp(
         title: 'PlacesToGo',
@@ -42,7 +51,7 @@ class MyApp extends StatelessWidget {
             //primarySwatch: Colors.purple,
             //accentColor: Colors.amber,
             fontFamily: 'Raleway',
-            canvasColor: Color.fromRGBO(255, 254, 229, 1),
+            canvasColor: const Color.fromRGBO(255, 254, 229, 1),
             textTheme: ThemeData.light().textTheme.copyWith(
                     headline6: const TextStyle(
                   fontSize: 20,
@@ -53,7 +62,7 @@ class MyApp extends StatelessWidget {
           AppRoutes.HOME: (ctx) => TabsScreen(),
           AppRoutes.COUNTRY_PLACES: (ctx) => CountryPlacesScreen(),
           AppRoutes.PLACES_DETAIL: (ctx) => const PlaceDetailScreen(),
-          AppRoutes.PLACES_FORM: (ctx) => PlaceFormScreen(),
+          AppRoutes.PLACES_FORM: (ctx) => const PlaceFormScreen(),
           AppRoutes.SETTINGS: (ctx) => SettingsScreen(),
         },
       ),

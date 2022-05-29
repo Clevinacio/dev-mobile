@@ -28,7 +28,7 @@ class MainDrawer extends StatelessWidget {
           Container(
             height: 120,
             width: double.infinity,
-            padding: EdgeInsets.all(40),
+            padding: const EdgeInsets.all(40),
             color: Theme.of(context).colorScheme.secondary,
             alignment: Alignment.bottomRight,
             child: Text(
@@ -52,7 +52,7 @@ class MainDrawer extends StatelessWidget {
           ),
           _createItem(
             Icons.settings,
-            'Configurações',
+            'Gerenciamento de lugares',
             () =>
                 Navigator.of(context).pushReplacementNamed(AppRoutes.SETTINGS),
           ),

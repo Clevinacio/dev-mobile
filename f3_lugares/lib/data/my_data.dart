@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../models/country.dart';
 
-const DUMMY_COUNTRIES = const [
+const List<Country> DUMMY_COUNTRIES = [
   Country(
     id: 'c1',
     title: 'Estanos Unidos',
@@ -46,7 +46,7 @@ const DUMMY_COUNTRIES = const [
   ),
 ];
 
-const DUMMY_PLACES = const [
+const DUMMY_PLACES = [
   Place(
     id: 'p1',
     titulo: 'Praia',

@@ -9,6 +9,7 @@ import 'package:multi_select_flutter/multi_select_flutter.dart';
 import '../components/main_drawer.dart';
 import '../components/place_item.dart';
 import '../models/favoritos.dart';
+import '../models/places.dart';
 
 class PlaceFormScreen extends StatefulWidget {
   const PlaceFormScreen({Key? key}) : super(key: key);
@@ -23,10 +24,50 @@ class _PlaceFormScreenState extends State<PlaceFormScreen> {
       .map((country) => MultiSelectItem(country, country.title))
       .toList();
 
-  List<Country> _selectedCountries = [];
+  List _countriesSelected = [];
 
   @override
   Widget build(BuildContext context) {
+    final TextEditingController _titleController = TextEditingController();
+    final TextEditingController _imageUrlController = TextEditingController();
+    final TextEditingController _evaluationController = TextEditingController();
+    final TextEditingController _averagePriceController =
+        TextEditingController();
+    final TextEditingController _recommendationController =
+        TextEditingController();
+    var _placesList = context.watch<Places>();
+
+    _submitForm() {
+      if (_formKey.currentState!.validate()) {
+        List<String> _countriesIds = [];
+        List<String> _recommendationsIds =
+            _recommendationController.text.split(',');
+
+        for (var country in _countriesSelected) {
+          _countriesIds.add(country.id);
+        }
+
+        final Place place = Place(
+          id: 'p${DUMMY_PLACES.length + 1}',
+          paises: _countriesIds,
+          titulo: _titleController.text,
+          imagemUrl: _imageUrlController.text,
+          recomendacoes: _recommendationsIds,
+          avaliacao: double.parse(_evaluationController.text),
+          custoMedio: double.parse(_averagePriceController.text),
+        );
+
+        _placesList.addPlace(place);
+
+        Navigator.of(context).pushReplacementNamed(AppRoutes.HOME);
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Lugar criado com sucesso!'),
+          ),
+        );
+      }
+    }
+
     return Scaffold(
       appBar: AppBar(title: const Text('Criar lugar')),
       body: Form(
@@ -36,6 +77,7 @@ class _PlaceFormScreenState extends State<PlaceFormScreen> {
           child: Column(
             children: <Widget>[
               TextFormField(
+                controller: _titleController,
                 decoration: const InputDecoration(labelText: 'Nome do lugar'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -45,7 +87,7 @@ class _PlaceFormScreenState extends State<PlaceFormScreen> {
                 },
               ),
               const SizedBox(height: 10),
-              MultiSelectBottomSheetField<Country>(
+              MultiSelectBottomSheetField(
                 initialChildSize: 0.4,
                 listType: MultiSelectListType.CHIP,
                 searchable: true,
@@ -59,17 +101,20 @@ class _PlaceFormScreenState extends State<PlaceFormScreen> {
                   return null;
                 },
                 onConfirm: (values) {
-                  _selectedCountries = values;
+                  _countriesSelected = values;
                 },
                 chipDisplay: MultiSelectChipDisplay(
                   onTap: (value) {
-                    setState(() {
-                      _selectedCountries.remove(value);
-                    });
+                    setState(
+                      () {
+                        _countriesSelected.remove(value);
+                      },
+                    );
                   },
                 ),
               ),
               TextFormField(
+                controller: _imageUrlController,
                 decoration:
                     const InputDecoration(labelText: 'Link da foto do local'),
                 validator: (value) {
@@ -87,6 +132,7 @@ class _PlaceFormScreenState extends State<PlaceFormScreen> {
                 },
               ),
               TextFormField(
+                controller: _evaluationController,
                 decoration: const InputDecoration(labelText: 'Avaliação'),
                 keyboardType: TextInputType.number,
                 validator: (value) {
@@ -102,6 +148,7 @@ class _PlaceFormScreenState extends State<PlaceFormScreen> {
                 },
               ),
               TextFormField(
+                controller: _averagePriceController,
                 decoration: const InputDecoration(labelText: 'Custo médio'),
                 keyboardType: TextInputType.number,
                 validator: (value) {
@@ -117,8 +164,10 @@ class _PlaceFormScreenState extends State<PlaceFormScreen> {
                 },
               ),
               const SizedBox(height: 10),
-              const Text('Recomenções'), // TODO - Recomendações
               TextFormField(
+                controller: _recommendationController,
+                decoration: const InputDecoration(
+                    labelText: 'Recomendações (separe por virgula)'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Por favor, preencha pelo menos uma recomendação';
@@ -128,30 +177,17 @@ class _PlaceFormScreenState extends State<PlaceFormScreen> {
                 },
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
+                  ElevatedButton(
+                    child: const Text('Salvar'),
+                    onPressed: _submitForm,
+                  ),
                   TextButton(
                     child: const Text('Cancelar'),
                     onPressed: () {
                       Navigator.of(context)
                           .pushReplacementNamed(AppRoutes.HOME);
-                    },
-                  ),
-                  ElevatedButton(
-                    child: const Text('Salvar'),
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        final favoritos =
-                            Provider.of<Favoritos>(context, listen: false);
-
-                        Navigator.of(context)
-                            .pushReplacementNamed(AppRoutes.HOME);
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Lugar criado com sucesso!'),
-                          ),
-                        );
-                      }
                     },
                   ),
                 ],
