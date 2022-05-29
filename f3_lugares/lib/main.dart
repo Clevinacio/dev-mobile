@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProxyProvider<List<Place>, Places>(
           create: (context) => Places(),
           update: (context, places, placesList) {
-            if (placesList == null) throw ArgumentError.notNull('favoritos');
+            if (placesList == null) throw ArgumentError.notNull('places');
             placesList.places = places;
             return placesList;
           },
@@ -63,6 +63,7 @@ class MyApp extends StatelessWidget {
           AppRoutes.COUNTRY_PLACES: (ctx) => CountryPlacesScreen(),
           AppRoutes.PLACES_DETAIL: (ctx) => const PlaceDetailScreen(),
           AppRoutes.PLACES_FORM: (ctx) => const PlaceFormScreen(),
+          AppRoutes.PLACES_EDIT: (ctx) => const PlaceFormScreen(),
           AppRoutes.SETTINGS: (ctx) => SettingsScreen(),
         },
       ),
